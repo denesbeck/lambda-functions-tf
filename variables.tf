@@ -8,15 +8,8 @@ variable "aws_secret_key" {
   description = "AWS Secret Key"
 }
 
-variable "region" {
-  type        = string
-  default     = "eu-central-1"
-  description = "AWS Region"
-}
-
 variable "ssm_kms_key_id" {
   type        = string
-  default     = "a27b309f-d9df-4fd0-a3ad-60afb50eab73"
   description = "SSM KMS Key Id"
 }
 
@@ -26,8 +19,14 @@ variable "lambda_functions_repo" {
   description = "GitHub repository for the Lambda functions in the format `owner/repo`"
 }
 
-variable "timezone" {
+variable "timezone_eu" {
   type        = string
-  default     = "Europe/Berlin"
-  description = "Timezone"
+  default     = "Europe/Paris"
+  description = "Timezone EU"
+}
+
+variable "timezone_us" {
+  type        = string
+  default     = "America/New_York"
+  description = "Timezone US"
 }
