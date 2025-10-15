@@ -13,7 +13,7 @@ resource "aws_iam_role" "scheduler_role" {
   })
 
   tags = {
-    "application" = "common"
+    "application" = "lambda-functions"
   }
 }
 
@@ -37,7 +37,7 @@ resource "aws_iam_role" "lambda_layer_cleanup" {
   })
 
   tags = {
-    "application" = "common"
+    "application" = "lambda-functions"
   }
 }
 
