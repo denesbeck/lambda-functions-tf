@@ -5,7 +5,7 @@ resource "aws_scheduler_schedule" "lambda_layer_cleanup" {
   flexible_time_window {
     mode = "OFF"
   }
-  schedule_expression_timezone = var.timezone
+  schedule_expression_timezone = var.timezone_eu
   schedule_expression          = "cron(0 0 1 * ? *)"
 
   target {

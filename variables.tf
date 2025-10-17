@@ -8,11 +8,6 @@ variable "aws_secret_key" {
   description = "AWS Secret Key"
 }
 
-variable "ssm_kms_key_id" {
-  type        = string
-  description = "SSM KMS Key Id"
-}
-
 variable "lambda_functions_repo" {
   type        = string
   default     = "denesbeck/lambda-functions"

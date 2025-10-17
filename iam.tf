@@ -106,8 +106,8 @@ resource "aws_iam_role_policy" "lambda_parameter_store_policy" {
           "ssm:GetParameters"
         ],
         Resource : [
-          "arn:aws:ssm:${var.region}:${data.aws_caller_identity.current.account_id}:*",
-          "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:key/${var.ssm_kms_key_id}"
+          "arn:aws:ssm:*:${data.aws_caller_identity.current.account_id}:*",
+          "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/${data.aws_kms_key.default.id}"
         ]
       }
     ]
@@ -125,7 +125,7 @@ resource "aws_iam_role_policy" "lambda_ses_send_policy" {
         Sid      = "AllowSESSendFromVerifiedIdentity",
         Effect   = "Allow",
         Action   = "ses:SendEmail",
-        Resource = "arn:aws:ses:${var.region}:${data.aws_caller_identity.current.account_id}:identity/*"
+        Resource = "arn:aws:ses:*:${data.aws_caller_identity.current.account_id}:identity/*"
         Condition : {
           "StringEquals" : {
             "ses:FromAddress" : "contact@arcade-lab.io"
