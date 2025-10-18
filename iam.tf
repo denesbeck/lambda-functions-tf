@@ -107,7 +107,7 @@ resource "aws_iam_role_policy" "lambda_parameter_store_policy" {
         ],
         Resource : [
           "arn:aws:ssm:*:${data.aws_caller_identity.current.account_id}:*",
-          "arn:aws:kms:eu-central-1:${data.aws_caller_identity.current.account_id}:key/${data.aws_kms_key.default.id}",
+          "arn:aws:kms:eu-central-1:${data.aws_caller_identity.current.account_id}:key/${data.aws_kms_key.default_eu.id}",
           "arn:aws:kms:us-east-1:${data.aws_caller_identity.current.account_id}:key/${data.aws_kms_key.default_us.id}"
         ]
       }
