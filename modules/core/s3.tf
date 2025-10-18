@@ -1,5 +1,13 @@
+resource "random_string" "random" {
+  length  = 16
+  upper   = false
+  lower   = true
+  numeric = true
+  special = false
+}
+
 resource "aws_s3_bucket" "s3_lambda_functions" {
-  bucket = "lambda-functions-5d47b429"
+  bucket = "lambda-functions-${random_string.random.id}"
 
   tags = {
     "application" = "lambda-functions"
@@ -7,7 +15,7 @@ resource "aws_s3_bucket" "s3_lambda_functions" {
 }
 
 resource "aws_s3_bucket" "s3_lambda_layers" {
-  bucket = "lambda-layers-fb0156a1"
+  bucket = "lambda-layers-${random_string.random.id}"
 
   tags = {
     "application" = "lambda-functions"
@@ -15,7 +23,7 @@ resource "aws_s3_bucket" "s3_lambda_layers" {
 }
 
 resource "aws_s3_bucket" "s3_lambda_hashes" {
-  bucket = "lambda-hashes-ac780253"
+  bucket = "lambda-hashes-${random_string.random.id}"
 
   tags = {
     "application" = "lambda-functions"

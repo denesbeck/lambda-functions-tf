@@ -1,4 +1,4 @@
-resource "aws_iam_role" "scheduler_role" {
+resource "aws_iam_role" "scheduler" {
   name = "SchedulerRole"
 
   assume_role_policy = jsonencode({
@@ -18,7 +18,7 @@ resource "aws_iam_role" "scheduler_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "scheduler_lambda_invoke_policy" {
-  role       = aws_iam_role.scheduler_role.name
+  role       = aws_iam_role.scheduler.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaRole"
 }
 
@@ -107,7 +107,8 @@ resource "aws_iam_role_policy" "lambda_parameter_store_policy" {
         ],
         Resource : [
           "arn:aws:ssm:*:${data.aws_caller_identity.current.account_id}:*",
-          "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/${data.aws_kms_key.default.id}"
+          "arn:aws:kms:eu-central-1:${data.aws_caller_identity.current.account_id}:key/${data.aws_kms_key.default.id}",
+          "arn:aws:kms:us-east-1:${data.aws_caller_identity.current.account_id}:key/${data.aws_kms_key.default_us.id}"
         ]
       }
     ]
@@ -142,7 +143,7 @@ resource "aws_iam_openid_connect_provider" "github" {
   thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1"]
 }
 
-resource "aws_iam_role" "github_actions_role" {
+resource "aws_iam_role" "github_actions" {
   name = "GitHubActionsDeployRole"
 
   assume_role_policy = jsonencode({
@@ -167,7 +168,7 @@ resource "aws_iam_role" "github_actions_role" {
 
 resource "aws_iam_role_policy" "lambda_deploy_policy" {
   name = "LambdaDeployPolicy"
-  role = aws_iam_role.github_actions_role.id
+  role = aws_iam_role.github_actions.id
 
   policy = jsonencode({
     Version = "2012-10-17",
@@ -180,15 +181,10 @@ resource "aws_iam_role_policy" "lambda_deploy_policy" {
           "s3:PutObject",
           "s3:ListBucket"
         ],
-        Resource = [
-          aws_s3_bucket.s3_lambda_functions.arn,
-          "${aws_s3_bucket.s3_lambda_functions.arn}/*",
-          aws_s3_bucket.s3_lambda_layers.arn,
-          "${aws_s3_bucket.s3_lambda_layers.arn}/*",
-          aws_s3_bucket.s3_lambda_hashes.arn,
-          "${aws_s3_bucket.s3_lambda_hashes.arn}/*",
-
-        ]
+        Resource = flatten([
+          module.core_eu.s3_resources,
+          module.core_us.s3_resources,
+        ])
       },
       {
         Sid    = "AllowLambdaManagement",
