@@ -209,7 +209,7 @@ resource "aws_iam_role_policy" "lambda_deploy_policy" {
       {
         "Effect" : "Allow",
         "Action" : "lambda:GetLayerVersion",
-        "Resource" : "arn:aws:lambda:eu-central-1:${data.aws_caller_identity.current.account_id}:layer:*"
+        "Resource" : "arn:aws:lambda:*:${data.aws_caller_identity.current.account_id}:layer:*"
       },
       {
         Sid      = "AllowSTSAccess",
