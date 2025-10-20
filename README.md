@@ -71,12 +71,15 @@ You can apply changes by pushing them to the default branch (usually `main`) to 
 
 ## 📂 Repository Structure
 
-- `s3.tf` – S3 buckets for storing metadata
-- `lambda.tf` – Lambda handler functions
-- `scheduler.tf` – Automated Lambda layer cleanup
-- `iam.tf` - IAM roles for resources
-- `providers.tf` – AWS and Terraform Cloud provider setup
-- `variables.tf` – Input variables for modularity
+- `modules/core/`:
+  - `lambda.tf` – Lambda handler functions
+  - `s3.tf` – S3 buckets for storing metadata
+  - `scheduler.tf` – Automated Lambda layer cleanup
+- `modules/iam/`: IAM roles and policies for resources
+  - `scheduler.tf` - IAM role and trust policy for the EventBridge Scheduler
+  - `layer-cleanup.tf` - IAM role and policy for the layer cleanup automation
+  - `oidc.tf` - IAM resources for the GH OIDC
+- `modules/iam/apps/`: Application specific IAM roles and policies
 
 ---
 
