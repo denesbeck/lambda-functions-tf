@@ -6,6 +6,10 @@ variable "scheduler_role_arn" {
   type = string
 }
 
+variable "layer_cleanup_role_arn" {
+  type = string
+}
+
 variable "arcade_lab_contact_role_arn" {
   type = string
 }
