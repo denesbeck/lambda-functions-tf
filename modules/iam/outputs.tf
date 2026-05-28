@@ -10,6 +10,3 @@ output "github_actions_role_arn" {
   value = aws_iam_role.github_actions.arn
 }
 
-output "arcade_lab_contact_role_arn" {
-  value = module.apps.arcade_lab_contact_role_arn
-}

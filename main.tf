@@ -4,7 +4,6 @@ module "core_eu" {
   timezone                    = var.timezone_eu
   scheduler_role_arn          = module.iam.scheduler_role_arn
   layer_cleanup_role_arn      = module.iam.layer_cleanup_role_arn
-  arcade_lab_contact_role_arn = module.iam.arcade_lab_contact_role_arn
   github_actions_role_arn     = module.iam.github_actions_role_arn
 
   providers = {
@@ -18,7 +17,6 @@ module "core_us" {
   timezone                    = var.timezone_us
   scheduler_role_arn          = module.iam.scheduler_role_arn
   layer_cleanup_role_arn      = module.iam.layer_cleanup_role_arn
-  arcade_lab_contact_role_arn = module.iam.arcade_lab_contact_role_arn
   github_actions_role_arn     = module.iam.github_actions_role_arn
 
   providers = {
